@@ -1,6 +1,3 @@
-import * as moment from 'moment';
-moment.locale('ar');
-
 import Pagination from 'rc-pagination/lib/locale/ar_EG';
 import DatePicker from '../date-picker/locale/ar_EG';
 import TimePicker from '../time-picker/locale/ar_EG';
@@ -16,7 +13,6 @@ export default {
     filterTitle: 'الفلاتر',
     filterConfirm: 'تأكيد',
     filterReset: 'إعادة ضبط',
-    emptyText: 'لا توجد بيانات',
     selectAll: 'اختيار الكل',
     selectInvert: 'إلغاء الاختيار',
   },
@@ -30,18 +26,17 @@ export default {
     cancelText: 'إلغاء',
   },
   Transfer: {
-    notFoundContent: 'لا يوجد محتوى',
     searchPlaceholder: 'ابحث هنا',
     itemUnit: 'عنصر',
     itemsUnit: 'عناصر',
-  },
-  Select: {
-    notFoundContent: 'لايوجد محتوى',
   },
   Upload: {
     uploading: 'جاري الرفع...',
     removeFile: 'احذف الملف',
     uploadError: 'مشكلة فى الرفع',
     previewFile: 'استعرض الملف',
+  },
+  Empty: {
+    description: 'لا توجد بيانات',
   },
 };

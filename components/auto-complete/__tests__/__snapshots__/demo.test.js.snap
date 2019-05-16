@@ -7,6 +7,7 @@ exports[`renders ./components/auto-complete/demo/basic.md correctly 1`] = `
 >
   <div
     aria-autocomplete="list"
+    aria-controls=""
     aria-expanded="false"
     aria-haspopup="true"
     class="ant-select-selection
@@ -19,7 +20,7 @@ exports[`renders ./components/auto-complete/demo/basic.md correctly 1`] = `
       <div
         class="ant-select-selection__placeholder"
         style="display:block;user-select:none;-webkit-user-select:none"
-        unselectable="unselectable"
+        unselectable="on"
       >
         input here
       </div>
@@ -47,9 +48,27 @@ exports[`renders ./components/auto-complete/demo/basic.md correctly 1`] = `
     <span
       class="ant-select-arrow"
       style="user-select:none;-webkit-user-select:none"
-      unselectable="unselectable"
+      unselectable="on"
     >
-      <b />
+      <i
+        aria-label="icon: down"
+        class="anticon anticon-down ant-select-arrow-icon"
+      >
+        <svg
+          aria-hidden="true"
+          class=""
+          data-icon="down"
+          fill="currentColor"
+          focusable="false"
+          height="1em"
+          viewBox="64 64 896 896"
+          width="1em"
+        >
+          <path
+            d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+          />
+        </svg>
+      </i>
     </span>
   </div>
 </div>
@@ -66,6 +85,7 @@ exports[`renders ./components/auto-complete/demo/certain-category.md correctly 1
   >
     <div
       aria-autocomplete="list"
+      aria-controls=""
       aria-expanded="false"
       aria-haspopup="true"
       class="ant-select-selection
@@ -78,7 +98,7 @@ exports[`renders ./components/auto-complete/demo/certain-category.md correctly 1
         <div
           class="ant-select-selection__placeholder"
           style="display:block;user-select:none;-webkit-user-select:none"
-          unselectable="unselectable"
+          unselectable="on"
         >
           input here
         </div>
@@ -101,8 +121,24 @@ exports[`renders ./components/auto-complete/demo/certain-category.md correctly 1
                   class="ant-input-suffix"
                 >
                   <i
+                    aria-label="icon: search"
                     class="anticon anticon-search certain-category-icon"
-                  />
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class=""
+                      data-icon="search"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0 0 11.6 0l43.6-43.5a8.2 8.2 0 0 0 0-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z"
+                      />
+                    </svg>
+                  </i>
                 </span>
               </span>
               <span
@@ -117,9 +153,27 @@ exports[`renders ./components/auto-complete/demo/certain-category.md correctly 1
       <span
         class="ant-select-arrow"
         style="user-select:none;-webkit-user-select:none"
-        unselectable="unselectable"
+        unselectable="on"
       >
-        <b />
+        <i
+          aria-label="icon: down"
+          class="anticon anticon-down ant-select-arrow-icon"
+        >
+          <svg
+            aria-hidden="true"
+            class=""
+            data-icon="down"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            viewBox="64 64 896 896"
+            width="1em"
+          >
+            <path
+              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+            />
+          </svg>
+        </i>
       </span>
     </div>
   </div>
@@ -133,6 +187,7 @@ exports[`renders ./components/auto-complete/demo/custom.md correctly 1`] = `
 >
   <div
     aria-autocomplete="list"
+    aria-controls=""
     aria-expanded="false"
     aria-haspopup="true"
     class="ant-select-selection
@@ -166,9 +221,27 @@ exports[`renders ./components/auto-complete/demo/custom.md correctly 1`] = `
     <span
       class="ant-select-arrow"
       style="user-select:none;-webkit-user-select:none"
-      unselectable="unselectable"
+      unselectable="on"
     >
-      <b />
+      <i
+        aria-label="icon: down"
+        class="anticon anticon-down ant-select-arrow-icon"
+      >
+        <svg
+          aria-hidden="true"
+          class=""
+          data-icon="down"
+          fill="currentColor"
+          focusable="false"
+          height="1em"
+          viewBox="64 64 896 896"
+          width="1em"
+        >
+          <path
+            d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+          />
+        </svg>
+      </i>
     </span>
   </div>
 </div>
@@ -181,6 +254,7 @@ exports[`renders ./components/auto-complete/demo/non-case-sensitive.md correctly
 >
   <div
     aria-autocomplete="list"
+    aria-controls=""
     aria-expanded="false"
     aria-haspopup="true"
     class="ant-select-selection
@@ -193,7 +267,7 @@ exports[`renders ./components/auto-complete/demo/non-case-sensitive.md correctly
       <div
         class="ant-select-selection__placeholder"
         style="display:block;user-select:none;-webkit-user-select:none"
-        unselectable="unselectable"
+        unselectable="on"
       >
         try to type \`b\`
       </div>
@@ -221,9 +295,27 @@ exports[`renders ./components/auto-complete/demo/non-case-sensitive.md correctly
     <span
       class="ant-select-arrow"
       style="user-select:none;-webkit-user-select:none"
-      unselectable="unselectable"
+      unselectable="on"
     >
-      <b />
+      <i
+        aria-label="icon: down"
+        class="anticon anticon-down ant-select-arrow-icon"
+      >
+        <svg
+          aria-hidden="true"
+          class=""
+          data-icon="down"
+          fill="currentColor"
+          focusable="false"
+          height="1em"
+          viewBox="64 64 896 896"
+          width="1em"
+        >
+          <path
+            d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+          />
+        </svg>
+      </i>
     </span>
   </div>
 </div>
@@ -236,6 +328,7 @@ exports[`renders ./components/auto-complete/demo/options.md correctly 1`] = `
 >
   <div
     aria-autocomplete="list"
+    aria-controls=""
     aria-expanded="false"
     aria-haspopup="true"
     class="ant-select-selection
@@ -248,7 +341,7 @@ exports[`renders ./components/auto-complete/demo/options.md correctly 1`] = `
       <div
         class="ant-select-selection__placeholder"
         style="display:block;user-select:none;-webkit-user-select:none"
-        unselectable="unselectable"
+        unselectable="on"
       >
         input here
       </div>
@@ -276,9 +369,27 @@ exports[`renders ./components/auto-complete/demo/options.md correctly 1`] = `
     <span
       class="ant-select-arrow"
       style="user-select:none;-webkit-user-select:none"
-      unselectable="unselectable"
+      unselectable="on"
     >
-      <b />
+      <i
+        aria-label="icon: down"
+        class="anticon anticon-down ant-select-arrow-icon"
+      >
+        <svg
+          aria-hidden="true"
+          class=""
+          data-icon="down"
+          fill="currentColor"
+          focusable="false"
+          height="1em"
+          viewBox="64 64 896 896"
+          width="1em"
+        >
+          <path
+            d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+          />
+        </svg>
+      </i>
     </span>
   </div>
 </div>
@@ -295,6 +406,7 @@ exports[`renders ./components/auto-complete/demo/uncertain-category.md correctly
   >
     <div
       aria-autocomplete="list"
+      aria-controls=""
       aria-expanded="false"
       aria-haspopup="true"
       class="ant-select-selection
@@ -307,7 +419,7 @@ exports[`renders ./components/auto-complete/demo/uncertain-category.md correctly
         <div
           class="ant-select-selection__placeholder"
           style="display:block;user-select:none;-webkit-user-select:none"
-          unselectable="unselectable"
+          unselectable="on"
         >
           input here
         </div>
@@ -334,8 +446,24 @@ exports[`renders ./components/auto-complete/demo/uncertain-category.md correctly
                     type="button"
                   >
                     <i
+                      aria-label="icon: search"
                       class="anticon anticon-search"
-                    />
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class=""
+                        data-icon="search"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0 0 11.6 0l43.6-43.5a8.2 8.2 0 0 0 0-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z"
+                        />
+                      </svg>
+                    </i>
                   </button>
                 </span>
               </span>
@@ -351,9 +479,27 @@ exports[`renders ./components/auto-complete/demo/uncertain-category.md correctly
       <span
         class="ant-select-arrow"
         style="user-select:none;-webkit-user-select:none"
-        unselectable="unselectable"
+        unselectable="on"
       >
-        <b />
+        <i
+          aria-label="icon: down"
+          class="anticon anticon-down ant-select-arrow-icon"
+        >
+          <svg
+            aria-hidden="true"
+            class=""
+            data-icon="down"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            viewBox="64 64 896 896"
+            width="1em"
+          >
+            <path
+              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+            />
+          </svg>
+        </i>
       </span>
     </div>
   </div>

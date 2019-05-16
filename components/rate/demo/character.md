@@ -13,7 +13,7 @@ title:
 
 Replace the default star to other character like alphabet, digit, iconfont or even Chinese word.
 
-````jsx
+```jsx
 import { Rate, Icon } from 'antd';
 
 ReactDOM.render(
@@ -23,6 +23,7 @@ ReactDOM.render(
     <Rate character="A" allowHalf style={{ fontSize: 36 }} />
     <br />
     <Rate character="好" allowHalf />
-  </div>
-, mountNode);
-````
+  </div>,
+  mountNode,
+);
+```

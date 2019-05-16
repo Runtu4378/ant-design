@@ -7,14 +7,15 @@ title:
 
 ## zh-CN
 
-自定义各个面板的背景色、圆角和边距。
+自定义各个面板的背景色、圆角、边距和图标。
 
 ## en-US
 
-Customize the background, border and margin styles for each panel.
+Customize the background, border, margin styles and icon for each panel.
 
-````jsx
-import { Collapse } from 'antd';
+```jsx
+import { Collapse, Icon } from 'antd';
+
 const Panel = Collapse.Panel;
 
 const text = `
@@ -32,7 +33,11 @@ const customPanelStyle = {
 };
 
 ReactDOM.render(
-  <Collapse bordered={false} defaultActiveKey={['1']}>
+  <Collapse
+    bordered={false}
+    defaultActiveKey={['1']}
+    expandIcon={({ isActive }) => <Icon type="caret-right" rotate={isActive ? 90 : 0} />}
+  >
     <Panel header="This is panel header 1" key="1" style={customPanelStyle}>
       <p>{text}</p>
     </Panel>
@@ -42,6 +47,7 @@ ReactDOM.render(
     <Panel header="This is panel header 3" key="3" style={customPanelStyle}>
       <p>{text}</p>
     </Panel>
-  </Collapse>
-, mountNode);
-````
+  </Collapse>,
+  mountNode,
+);
+```

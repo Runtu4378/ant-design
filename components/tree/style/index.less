@@ -1,44 +1,57 @@
-@import "../../style/themes/default";
-@import "../../style/mixins/index";
-@import "../../checkbox/style/mixin";
-@import "./mixin";
+@import '../../style/themes/index';
+@import '../../style/mixins/index';
+@import '../../checkbox/style/mixin';
+@import './mixin';
+@import './directory';
 
-@tree-prefix-cls: ~"@{ant-prefix}-tree";
+@tree-prefix-cls: ~'@{ant-prefix}-tree';
 @tree-showline-icon-color: @text-color-secondary;
+@tree-node-padding: 4px;
 
-.antCheckboxFn(@checkbox-prefix-cls: ~"@{ant-prefix}-tree-checkbox");
+.antCheckboxFn(@checkbox-prefix-cls: ~'@{ant-prefix}-tree-checkbox');
 
 .@{tree-prefix-cls} {
+  /* see https://github.com/ant-design/ant-design/issues/16259 */
+  &-checkbox-checked::after {
+    position: absolute;
+    top: 16.67%;
+    left: 0;
+    width: 100%;
+    height: 66.67%;
+  }
+
   .reset-component;
+
   margin: 0;
   padding: 0;
 
-  ol, ul {
-    list-style: none;
+  ol,
+  ul {
     margin: 0;
     padding: 0;
+    list-style: none;
   }
 
   li {
-    padding: 4px 0;
     margin: 0;
-    list-style: none;
+    padding: @tree-node-padding 0;
     white-space: nowrap;
+    list-style: none;
     outline: 0;
     span[draggable],
-    span[draggable="true"] {
-      user-select: none;
+    span[draggable='true'] {
+      line-height: @tree-title-height - 4px;
       border-top: 2px transparent solid;
       border-bottom: 2px transparent solid;
-      margin-top: -2px;
+      user-select: none;
       /* Required to make elements draggable in old WebKit */
       -khtml-user-drag: element;
       -webkit-user-drag: element;
     }
     &.drag-over {
       > span[draggable] {
-        background-color: @primary-color;
         color: white;
+        background-color: @primary-color;
         opacity: 0.8;
       }
     }
@@ -58,23 +71,56 @@
         font-weight: 500 !important;
       }
     }
+
+    // When node is loading
+    &.@{tree-prefix-cls}-treenode-loading {
+      span {
+        &.@{tree-prefix-cls}-switcher {
+          &.@{tree-prefix-cls}-switcher_open,
+          &.@{tree-prefix-cls}-switcher_close {
+            .@{tree-prefix-cls}-switcher-loading-icon {
+              position: absolute;
+              left: 0;
+              display: inline-block;
+              width: 24px;
+              height: @tree-title-height;
+              color: @primary-color;
+              font-size: 14px;
+              transform: none;
+              svg {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                margin: auto;
+              }
+            }
+
+            :root &::after {
+              opacity: 0;
+            }
+          }
+        }
+      }
+    }
+
     ul {
       margin: 0;
-      padding: 0 0 0 18px;
+      padding: 0 0 0 @tree-child-padding;
     }
     .@{tree-prefix-cls}-node-content-wrapper {
       display: inline-block;
-      padding: 0 5px;
-      border-radius: @border-radius-sm;
+      height: @tree-title-height;
       margin: 0;
-      cursor: pointer;
+      padding: 0 5px;
+      color: @text-color;
+      line-height: @tree-title-height;
       text-decoration: none;
       vertical-align: top;
-      color: @text-color;
-      transition: all .3s;
-      position: relative;
-      height: 24px;
-      line-height: 24px;
+      border-radius: @border-radius-sm;
+      cursor: pointer;
+      transition: all 0.3s;
       &:hover {
         background-color: @item-hover-bg;
       }
@@ -84,36 +130,28 @@
     }
     span {
       &.@{tree-prefix-cls}-checkbox {
-        margin: 4px 4px 0 2px;
+        top: initial;
+        height: @tree-title-height;
+        margin: 0 4px 0 2px;
+        padding: ((@tree-title-height - 16px) / 2) 0;
       }
       &.@{tree-prefix-cls}-switcher,
       &.@{tree-prefix-cls}-iconEle {
-        margin: 0;
-        width: 24px;
-        height: 24px;
-        line-height: 24px;
         display: inline-block;
-        vertical-align: middle;
-        border: 0 none;
-        cursor: pointer;
-        outline: none;
+        width: 24px;
+        height: @tree-title-height;
+        margin: 0;
+        line-height: @tree-title-height;
         text-align: center;
+        vertical-align: top;
+        border: 0 none;
+        outline: none;
+        cursor: pointer;
       }
-      &.@{tree-prefix-cls}-icon_loading {
-        position: absolute;
-        left: 0;
-        top: 1px;
-        background: #fff;
-        transform: translateX(-100%);
-        transition: all .3s;
-        &:after {
-          display: inline-block;
-          .iconfont-font("\E64D");
-          animation: loadingCircle 1s infinite linear;
-          color: @primary-color;
-        }
-      }
+
       &.@{tree-prefix-cls}-switcher {
+        position: relative;
+
         &.@{tree-prefix-cls}-switcher-noop {
           cursor: default;
         }
@@ -122,8 +160,10 @@
         }
         &.@{tree-prefix-cls}-switcher_close {
           .antTreeSwitcherIcon();
-          &:after {
-            transform: rotate(270deg) scale(0.59);
+          .@{tree-prefix-cls}-switcher-icon {
+            svg {
+              transform: rotate(-90deg);
+            }
           }
         }
       }
@@ -131,12 +171,13 @@
     &:last-child > span {
       &.@{tree-prefix-cls}-switcher,
       &.@{tree-prefix-cls}-iconEle {
-        &:before {
+        &::before {
           display: none;
         }
       }
     }
   }
+
   > li {
     &:first-child {
       padding-top: 7px;
@@ -146,16 +187,23 @@
     }
   }
   &-child-tree {
-    display: none;
-    &-open {
-      display: block;
+    // https://github.com/ant-design/ant-design/issues/14958
+    > li {
+      // Provide additional padding between top child node and parent node
+      &:first-child {
+        padding-top: 2 * @tree-node-padding;
+      }
+
+      // Hide additional padding between last child node and next parent node
+      &:last-child {
+        padding-bottom: 0;
+      }
     }
   }
   li&-treenode-disabled {
-    > span,
+    > span:not(.@{tree-prefix-cls}-switcher),
     > .@{tree-prefix-cls}-node-content-wrapper,
-    > .@{tree-prefix-cls}-node-content-wrapper span,
-    > span.@{tree-prefix-cls}-switcher {
+    > .@{tree-prefix-cls}-node-content-wrapper span {
       color: @disabled-color;
       cursor: not-allowed;
     }
@@ -177,28 +225,51 @@
       position: relative;
       span {
         &.@{tree-prefix-cls}-switcher {
-          background: @component-background;
           color: @tree-showline-icon-color;
+          background: @component-background;
           &.@{tree-prefix-cls}-switcher-noop {
-            .antTreeShowLineIcon("tree-doc-icon");
+            .antTreeShowLineIcon('tree-doc-icon');
           }
           &.@{tree-prefix-cls}-switcher_open {
-            .antTreeShowLineIcon("tree-showline-open-icon");
+            .antTreeShowLineIcon('tree-showline-open-icon');
           }
           &.@{tree-prefix-cls}-switcher_close {
-            .antTreeShowLineIcon("tree-showline-close-icon");
+            .antTreeShowLineIcon('tree-showline-close-icon');
           }
         }
       }
     }
-    li:not(:last-child):before {
-      content: ' ';
-      width: 1px;
-      border-left: 1px solid @border-color-base;
-      height: 100%;
+    li:not(:last-child)::before {
       position: absolute;
       left: 12px;
+      width: 1px;
+      height: 100%;
       margin: 22px 0;
+      border-left: 1px solid @border-color-base;
+      content: ' ';
+    }
+  }
+
+  &.@{tree-prefix-cls}-icon-hide {
+    .@{tree-prefix-cls}-treenode-loading {
+      .@{tree-prefix-cls}-iconEle {
+        display: none;
+      }
+    }
+  }
+
+  &.@{tree-prefix-cls}-block-node {
+    li {
+      .@{tree-prefix-cls}-node-content-wrapper {
+        width: ~'calc(100% - 24px)';
+      }
+      span {
+        &.@{tree-prefix-cls}-checkbox {
+          + .@{tree-prefix-cls}-node-content-wrapper {
+            width: ~'calc(100% - 46px)';
+          }
+        }
+      }
     }
   }
 }

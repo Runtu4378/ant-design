@@ -1,14 +1,16 @@
-@import "../../style/themes/default";
-@import "../../style/mixins/index";
+@import '../../style/themes/index';
+@import '../../style/mixins/index';
 
-@tooltip-prefix-cls: ~"@{ant-prefix}-tooltip";
+@tooltip-prefix-cls: ~'@{ant-prefix}-tooltip';
 
 // Base class
 .@{tooltip-prefix-cls} {
   .reset-component;
+
   position: absolute;
   z-index: @zindex-tooltip;
   display: block;
+  max-width: @tooltip-max-width;
   visibility: visible;
 
   &-hidden {
@@ -38,15 +40,16 @@
 
   // Wrapper for the tooltip content
   &-inner {
-    max-width: @tooltip-max-width;
+    min-width: 30px;
+    min-height: 32px;
     padding: 6px 8px;
     color: @tooltip-color;
     text-align: left;
     text-decoration: none;
+    word-wrap: break-word;
     background-color: @tooltip-bg;
     border-radius: @border-radius-base;
     box-shadow: @box-shadow-base;
-    min-height: 32px;
   }
 
   // Arrows

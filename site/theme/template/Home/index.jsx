@@ -2,11 +2,12 @@ import React from 'react';
 import { injectIntl } from 'react-intl';
 import DocumentTitle from 'react-document-title';
 import PropTypes from 'prop-types';
-import Animate from 'rc-animate';
 import Banner from './Banner';
 import Page1 from './Page1';
 import Page2 from './Page2';
 import Page3 from './Page3';
+import Footer from '../Layout/Footer';
+
 // To store style which is only for Home and has conflicts with others.
 function getStyle() {
   return `
@@ -28,73 +29,55 @@ function getStyle() {
     #header #logo {
       padding: 0;
     }
-    #header .ant-row > div:last-child #search-box,
-    #header .ant-row > div:last-child .ant-select,
-    #header .ant-row > div:last-child .ant-menu,
-    #header .nav-phone-icon {
+    #header #nav .ant-menu-item {
+      border-color: transparent;
+    }
+    #header #nav .ant-menu-submenu {
+      border-color: transparent;
+    }
+    #header #nav .ant-menu-item.hide-in-home-page {
       display: none;
     }
     #header .ant-row > div:last-child .header-lang-button {
       margin-right: 0;
     }
-    #header .ant-row .ant-col-lg-19,
-    #header .ant-row .ant-col-xl-19 {
-      width: 50%;
-      float: right;
+    footer .footer-wrap {
+      width: 100%;
+      max-width: 1200px;
+      padding: 86px 24px 93px 24px;
+      margin: auto;
+    }
+    @media only screen and (max-width: 767.99px) {
+      #footer .footer-wrap {
+        padding: 40px 24px;
+      }
+      footer .footer-wrap .ant-row {
+        padding: 0;
+      }
     }
   `;
 }
 
-const versionName = 'antd-noShowNewVersionVideo-3.0';
-const vidoeSrc = 'https://gw.alipayobjects.com/os/rmsportal/DNDyihnvkHUuANuumKck.mp4';
-// window.localStorage.setItem(versionName, 'false');
+/* eslint-disable react/prefer-stateless-function */
 class Home extends React.Component {
   static contextTypes = {
     intl: PropTypes.object.isRequired,
     isMobile: PropTypes.bool.isRequired,
-  }
-  constructor(props) {
-    super(props);
-    const noShowNewVersionVideo = typeof window === 'undefined' ? true : (
-      window.localStorage && window.localStorage.getItem(versionName) === 'true'
-    );
-    this.state = { noShowNewVersionVideo };
-  }
-  onVideoEnd = () => {
-    this.setState({
-      noShowNewVersionVideo: true,
-    });
-    if (window.localStorage) {
-      window.localStorage.setItem(versionName, 'true');
-    }
-  }
+  };
+
   render() {
     const { isMobile, intl } = this.context;
     const childProps = { ...this.props, isMobile, locale: intl.locale };
-    const noShowNewVersionVideo = this.state.noShowNewVersionVideo ? null : (
-      <div className="new-version-video" key="video">
-        <div className="vidoe-wrap">
-          <video width="100%" autoPlay onEnded={this.onVideoEnd}>
-            <source src={vidoeSrc} autoPlay type="video/mp4" />
-            <track kind="captions" />
-          </video>
-        </div>
-      </div>
-    );
     return (
-      <DocumentTitle title={`Ant Design - ${this.props.intl.formatMessage({ id: 'app.home.slogan' })}`}>
-        <div className="main-wrapper">
+      <DocumentTitle title={`Ant Design - ${intl.formatMessage({ id: 'app.home.slogan' })}`}>
+        <>
+          <style dangerouslySetInnerHTML={{ __html: getStyle() }} /> {/* eslint-disable-line */}
           <Banner {...childProps} />
           <Page1 {...childProps} />
           <Page2 {...childProps} />
           <Page3 {...childProps} />
-          <style dangerouslySetInnerHTML={{ __html: getStyle() }} />
-          {!isMobile && (
-            <Animate transitionName="fade">
-              {noShowNewVersionVideo}
-            </Animate>
-          )}
-        </div>
+          <Footer />
+        </>
       </DocumentTitle>
     );
   }

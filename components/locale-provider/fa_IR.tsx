@@ -1,6 +1,3 @@
-import * as moment from 'moment';
-moment.locale('fa');
-
 import Pagination from 'rc-pagination/lib/locale/fa_IR';
 import DatePicker from '../date-picker/locale/fa_IR';
 import TimePicker from '../time-picker/locale/fa_IR';
@@ -16,7 +13,6 @@ export default {
     filterTitle: 'منوی فیلتر',
     filterConfirm: 'تایید',
     filterReset: 'پاک کردن',
-    emptyText: 'داده‌ای موجود نیست',
     selectAll: 'انتخاب صفحه‌ی کنونی',
     selectInvert: 'معکوس کردن انتخاب‌ها در صفحه ی کنونی',
   },
@@ -30,18 +26,17 @@ export default {
     cancelText: 'لغو',
   },
   Transfer: {
-    notFoundContent: 'داده‌ای موجود نیست',
     searchPlaceholder: 'جستجو',
     itemUnit: '',
     itemsUnit: '',
-  },
-  Select: {
-    notFoundContent: 'داده‌ای موجود نیست',
   },
   Upload: {
     uploading: 'در حال آپلود...',
     removeFile: 'حذف فایل',
     uploadError: 'خطا در آپلود',
     previewFile: 'مشاهده‌ی فایل',
+  },
+  Empty: {
+    description: 'داده‌ای موجود نیست',
   },
 };

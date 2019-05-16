@@ -11,9 +11,9 @@ title:
 
 ## en-US
 
-The ToolTip has 12 placements choice.
+There are 12 placement options available.
 
-````jsx
+```jsx
 import { Tooltip, Button } from 'antd';
 
 const text = <span>prompt text</span>;
@@ -44,7 +44,7 @@ ReactDOM.render(
         <Button>LB</Button>
       </Tooltip>
     </div>
-    <div style={{ width: buttonWidth, marginLeft: (buttonWidth * 4) + 24 }}>
+    <div style={{ width: buttonWidth, marginLeft: buttonWidth * 4 + 24 }}>
       <Tooltip placement="rightTop" title={text}>
         <Button>RT</Button>
       </Tooltip>
@@ -66,9 +66,10 @@ ReactDOM.render(
         <Button>BR</Button>
       </Tooltip>
     </div>
-  </div>
-, mountNode);
-````
+  </div>,
+  mountNode,
+);
+```
 
 <style>
 .code-box-demo .demo {

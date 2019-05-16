@@ -15,11 +15,11 @@ Cascade selection box.
 ## API
 
 ```html
-<Cascader options={options} onChange={onChange} />
+<Cascader options="{options}" onChange="{onChange}" />
 ```
 
 | Property | Description | Type | Default |
-| -------- | ----------- | ---- | ------- |
+| --- | --- | --- | --- |
 | allowClear | whether allow clear | boolean | true |
 | autoFocus | get focus when component mounted | boolean | false |
 | changeOnSelect | change value on each selection if set to true, see above demo for details | boolean | false |
@@ -28,6 +28,7 @@ Cascade selection box.
 | disabled | whether disabled select | boolean | false |
 | displayRender | render function of displaying selected options | `(label, selectedOptions) => ReactNode` | `label => label.join(' / ')` |
 | expandTrigger | expand current item when click or hover, one of 'click' 'hover' | string | 'click' |
+| fieldNames | custom field name for label and value and children (before 3.7.0 it calls `filedNames` which is typo）) | object | `{ label: 'label', value: 'value', children: 'children' }` |
 | getPopupContainer | Parent Node which the selector should be rendered to. Default to `body`. When position issues happen, try to modify it into scrollable content and position it relative.[example](https://codepen.io/afc163/pen/zEjNOy?editors=0010) | Function(triggerNode) | () => document.body |
 | loadData | To load option lazily, and it cannot work with `showSearch` | `(selectedOptions) => void` | - |
 | notFoundContent | Specify content to show when no result matches. | string | 'Not Found' |
@@ -39,6 +40,7 @@ Cascade selection box.
 | showSearch | Whether show search input in single mode. | boolean\|object | false |
 | size | input size, one of `large` `default` `small` | string | `default` |
 | style | additional style | string | - |
+| suffixIcon | The custom suffix icon | ReactNode | - |
 | value | selected value | string\[] | - |
 | onChange | callback when finishing cascader select | `(value, selectedOptions) => void` | - |
 | onPopupVisibleChange | callback when popup shown or hidden | `(value) => void` | - |
@@ -46,18 +48,19 @@ Cascade selection box.
 Fields in `showSearch`:
 
 | Property | Description | Type | Default |
-| -------- | ----------- | ---- | ------- |
+| --- | --- | --- | --- |
 | filter | The function will receive two arguments, inputValue and option, if the function returns true, the option will be included in the filtered set; Otherwise, it will be excluded. | `function(inputValue, path): boolean` |  |
+| limit | Set the count of filtered items | number \| false | 50 |
 | matchInputWidth | Whether the width of result list equals to input's | boolean |  |
 | render | Used to render filtered options. | `function(inputValue, path): ReactNode` |  |
 | sort | Used to sort filtered options. | `function(a, b, inputValue)` |  |
 
 ## Methods
 
-| Name | Description |
-| ---- | ----------- |
-| blur() | remove focus |
-| focus() | get focus |
+| Name    | Description  |
+| ------- | ------------ |
+| blur()  | remove focus |
+| focus() | get focus    |
 
 <style>
 .ant-cascader-picker {

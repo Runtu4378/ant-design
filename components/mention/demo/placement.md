@@ -13,8 +13,9 @@ title:
 
 Change the suggestions placement.
 
-````jsx
+```jsx
 import { Mention } from 'antd';
+
 const { toString } = Mention;
 
 function onChange(contentState) {
@@ -29,9 +30,10 @@ ReactDOM.render(
   <Mention
     style={{ width: '100%' }}
     onChange={onChange}
-    suggestions={['afc163', 'benjycui', 'yiminghe', 'RaoHai', '中文', 'にほんご']}
+    defaultSuggestions={['afc163', 'benjycui', 'yiminghe', 'RaoHai', '中文', 'にほんご']}
     onSelect={onSelect}
     placement="top"
-  />
-, mountNode);
-````
+  />,
+  mountNode,
+);
+```

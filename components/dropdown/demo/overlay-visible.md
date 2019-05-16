@@ -13,21 +13,24 @@ title:
 
 The default is to close the menu when you click on menu items, this feature can be turned off.
 
-````jsx
+```jsx
 import { Menu, Dropdown, Icon } from 'antd';
 
 class OverlayVisible extends React.Component {
   state = {
     visible: false,
   };
-  handleMenuClick = (e) => {
+
+  handleMenuClick = e => {
     if (e.key === '3') {
       this.setState({ visible: false });
     }
-  }
-  handleVisibleChange = (flag) => {
+  };
+
+  handleVisibleChange = flag => {
     this.setState({ visible: flag });
-  }
+  };
+
   render() {
     const menu = (
       <Menu onClick={this.handleMenuClick}>
@@ -37,7 +40,8 @@ class OverlayVisible extends React.Component {
       </Menu>
     );
     return (
-      <Dropdown overlay={menu}
+      <Dropdown
+        overlay={menu}
         onVisibleChange={this.handleVisibleChange}
         visible={this.state.visible}
       >
@@ -50,4 +54,4 @@ class OverlayVisible extends React.Component {
 }
 
 ReactDOM.render(<OverlayVisible />, mountNode);
-````
+```

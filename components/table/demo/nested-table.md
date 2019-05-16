@@ -13,18 +13,13 @@ title:
 
 Showing more detailed info of every row.
 
-````jsx
-
+```jsx
 import { Table, Badge, Menu, Dropdown, Icon } from 'antd';
 
 const menu = (
   <Menu>
-    <Menu.Item>
-      Action 1
-    </Menu.Item>
-    <Menu.Item>
-      Action 2
-    </Menu.Item>
+    <Menu.Item>Action 1</Menu.Item>
+    <Menu.Item>Action 2</Menu.Item>
   </Menu>
 );
 
@@ -33,7 +28,16 @@ function NestedTable() {
     const columns = [
       { title: 'Date', dataIndex: 'date', key: 'date' },
       { title: 'Name', dataIndex: 'name', key: 'name' },
-      { title: 'Status', key: 'state', render: () => <span><Badge status="success" />Finished</span> },
+      {
+        title: 'Status',
+        key: 'state',
+        render: () => (
+          <span>
+            <Badge status="success" />
+            Finished
+          </span>
+        ),
+      },
       { title: 'Upgrade Status', dataIndex: 'upgradeNum', key: 'upgradeNum' },
       {
         title: 'Action',
@@ -41,10 +45,10 @@ function NestedTable() {
         key: 'operation',
         render: () => (
           <span className="table-operation">
-            <a href="#">Pause</a>
-            <a href="#">Stop</a>
+            <a href="javascript:;">Pause</a>
+            <a href="javascript:;">Stop</a>
             <Dropdown overlay={menu}>
-              <a href="#">
+              <a href="javascript:;">
                 More <Icon type="down" />
               </a>
             </Dropdown>
@@ -62,13 +66,7 @@ function NestedTable() {
         upgradeNum: 'Upgraded: 56',
       });
     }
-    return (
-      <Table
-        columns={columns}
-        dataSource={data}
-        pagination={false}
-      />
-    );
+    return <Table columns={columns} dataSource={data} pagination={false} />;
   };
 
   const columns = [
@@ -78,7 +76,7 @@ function NestedTable() {
     { title: 'Upgraded', dataIndex: 'upgradeNum', key: 'upgradeNum' },
     { title: 'Creator', dataIndex: 'creator', key: 'creator' },
     { title: 'Date', dataIndex: 'createdAt', key: 'createdAt' },
-    { title: 'Action', key: 'operation', render: () => <a href="#">Publish</a> },
+    { title: 'Action', key: 'operation', render: () => <a href="javascript:;">Publish</a> },
   ];
 
   const data = [];
@@ -105,34 +103,4 @@ function NestedTable() {
 }
 
 ReactDOM.render(<NestedTable />, mountNode);
-````
-
-````css
-.components-table-demo-nested .ant-table-expanded-row > td:last-child {
-  padding: 0 48px 0 8px;
-}
-
-.components-table-demo-nested .ant-table-expanded-row > td:last-child .ant-table-thead th {
-  border-bottom: 1px solid #e9e9e9;
-}
-
-.components-table-demo-nested .ant-table-expanded-row > td:last-child .ant-table-thead th:first-child {
-  padding-left: 0;
-}
-
-.components-table-demo-nested .ant-table-expanded-row > td:last-child .ant-table-row td:first-child {
-  padding-left: 0;
-}
-
-.components-table-demo-nested .ant-table-expanded-row .ant-table-row:last-child td {
-  border: none;
-}
-
-.components-table-demo-nested .ant-table-expanded-row .ant-table-thead > tr > th {
-  background: none;
-}
-
-.components-table-demo-nested .table-operation a:not(:last-child) {
-  margin-right: 24px;
-}
-````
+```

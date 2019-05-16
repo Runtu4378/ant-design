@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const redirect = {
   '/docs/resource/download': '/docs/spec/download',
   '/docs/resource/download-cn': '/docs/spec/download-cn',
@@ -12,8 +11,8 @@ const redirect = {
   '/docs/pattern/advanced-search-cn': '/docs/spec/overview-cn',
   '/docs/pattern/complex-table': '/docs/spec/overview',
   '/docs/pattern/complex-table-cn': '/docs/spec/overview-cn',
-  '/docs/pattern/from': '/docs/spec/overview',
-  '/docs/pattern/from-cn': '/docs/spec/overview-cn',
+  '/docs/pattern/form': '/docs/spec/overview',
+  '/docs/pattern/form-cn': '/docs/spec/overview-cn',
   '/docs/pattern/list': '/docs/spec/overview',
   '/docs/pattern/list-cn': '/docs/spec/overview-cn',
   '/docs/pattern/navigation': '/docs/spec/navigation',
@@ -26,7 +25,7 @@ export default class Redirect extends React.Component {
   componentDidMount() {
     const { location } = this.props;
     const pathname = `/${location.pathname}`;
-    Object.keys(redirect).forEach((from) => {
+    Object.keys(redirect).forEach(from => {
       if (pathname.indexOf(from) === 0) {
         window.location.href = redirect[from];
       }

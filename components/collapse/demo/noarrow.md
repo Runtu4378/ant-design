@@ -11,10 +11,11 @@ title:
 
 ## en-US
 
-You can disable showing arrow icon by passing `showArrow={false}` to `CollapsePanel` component.
+You can hide the arrow icon by passing `showArrow={false}` to `CollapsePanel` component.
 
-````jsx
+```jsx
 import { Collapse } from 'antd';
+
 const Panel = Collapse.Panel;
 
 function callback(key) {
@@ -35,6 +36,7 @@ ReactDOM.render(
     <Panel showArrow={false} header="This is panel header with no arrow icon" key="2">
       <p>{text}</p>
     </Panel>
-  </Collapse>
-, mountNode);
-````
+  </Collapse>,
+  mountNode,
+);
+```

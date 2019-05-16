@@ -12,7 +12,6 @@ title: Work with Us
 const emails = [
   'momo.zxy#alipay.com',
   'lindong.lld#alipay.com',
-  'luli.fxx#alipay.com',
 ];
 ReactDOM.render(
   <p>作品和简历请投递：{emails[parseInt(Math.random() * emails.length, 10)]}</p>
@@ -37,7 +36,7 @@ ReactDOM.render(
 
 ## 前端工程师
 
-简历请投递：xingmin.zhu#alipay.com
+简历请投递：afc163+antd@gmail.com
 
 > 注明简历来自 ant.design 官网
 

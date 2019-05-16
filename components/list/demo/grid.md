@@ -1,7 +1,7 @@
 ---
 order: 4
 title:
-  zh-CN: 栅格列表 
+  zh-CN: 栅格列表
   en-US: Grid
 ---
 
@@ -11,9 +11,9 @@ title:
 
 ## en-US
 
-Creating a grid list by setting the `grid` property of List
+Create a grid layout by setting the `grid` property of List.
 
-````jsx
+```jsx
 import { List, Card } from 'antd';
 
 const data = [
@@ -40,6 +40,7 @@ ReactDOM.render(
         <Card title={item.title}>Card content</Card>
       </List.Item>
     )}
-  />
-, mountNode);
-````
+  />,
+  mountNode,
+);
+```

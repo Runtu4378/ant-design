@@ -12,6 +12,7 @@ exports[`renders ./components/calendar/demo/basic.md correctly 1`] = `
     >
       <div
         aria-autocomplete="list"
+        aria-controls=""
         aria-expanded="false"
         aria-haspopup="true"
         class="ant-select-selection
@@ -33,9 +34,27 @@ exports[`renders ./components/calendar/demo/basic.md correctly 1`] = `
         <span
           class="ant-select-arrow"
           style="user-select:none;-webkit-user-select:none"
-          unselectable="unselectable"
+          unselectable="on"
         >
-          <b />
+          <i
+            aria-label="icon: down"
+            class="anticon anticon-down ant-select-arrow-icon"
+          >
+            <svg
+              aria-hidden="true"
+              class=""
+              data-icon="down"
+              fill="currentColor"
+              focusable="false"
+              height="1em"
+              viewBox="64 64 896 896"
+              width="1em"
+            >
+              <path
+                d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+              />
+            </svg>
+          </i>
         </span>
       </div>
     </div>
@@ -44,6 +63,7 @@ exports[`renders ./components/calendar/demo/basic.md correctly 1`] = `
     >
       <div
         aria-autocomplete="list"
+        aria-controls=""
         aria-expanded="false"
         aria-haspopup="true"
         class="ant-select-selection
@@ -65,14 +85,32 @@ exports[`renders ./components/calendar/demo/basic.md correctly 1`] = `
         <span
           class="ant-select-arrow"
           style="user-select:none;-webkit-user-select:none"
-          unselectable="unselectable"
+          unselectable="on"
         >
-          <b />
+          <i
+            aria-label="icon: down"
+            class="anticon anticon-down ant-select-arrow-icon"
+          >
+            <svg
+              aria-hidden="true"
+              class=""
+              data-icon="down"
+              fill="currentColor"
+              focusable="false"
+              height="1em"
+              viewBox="64 64 896 896"
+              width="1em"
+            >
+              <path
+                d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+              />
+            </svg>
+          </i>
         </span>
       </div>
     </div>
     <div
-      class="ant-radio-group ant-radio-group-default"
+      class="ant-radio-group ant-radio-group-outline ant-radio-group-default"
     >
       <label
         class="ant-radio-button-wrapper ant-radio-button-wrapper-checked"
@@ -84,6 +122,7 @@ exports[`renders ./components/calendar/demo/basic.md correctly 1`] = `
             checked=""
             class="ant-radio-button-input"
             type="radio"
+            value="month"
           />
           <span
             class="ant-radio-button-inner"
@@ -102,6 +141,7 @@ exports[`renders ./components/calendar/demo/basic.md correctly 1`] = `
           <input
             class="ant-radio-button-input"
             type="radio"
+            value="year"
           />
           <span
             class="ant-radio-button-inner"
@@ -234,7 +274,7 @@ exports[`renders ./components/calendar/demo/basic.md correctly 1`] = `
               </div>
             </td>
             <td
-              class="ant-fullcalendar-cell ant-fullcalendar-last-month-cell"
+              class="ant-fullcalendar-cell ant-fullcalendar-last-month-cell ant-fullcalendar-last-day-of-month"
               role="gridcell"
               title="October 31, 2016"
             >
@@ -794,7 +834,7 @@ exports[`renders ./components/calendar/demo/basic.md correctly 1`] = `
               </div>
             </td>
             <td
-              class="ant-fullcalendar-cell"
+              class="ant-fullcalendar-cell ant-fullcalendar-last-day-of-month"
               role="gridcell"
               title="November 30, 2016"
             >
@@ -1019,6 +1059,7 @@ exports[`renders ./components/calendar/demo/card.md correctly 1`] = `
       >
         <div
           aria-autocomplete="list"
+          aria-controls=""
           aria-expanded="false"
           aria-haspopup="true"
           class="ant-select-selection
@@ -1040,9 +1081,27 @@ exports[`renders ./components/calendar/demo/card.md correctly 1`] = `
           <span
             class="ant-select-arrow"
             style="user-select:none;-webkit-user-select:none"
-            unselectable="unselectable"
+            unselectable="on"
           >
-            <b />
+            <i
+              aria-label="icon: down"
+              class="anticon anticon-down ant-select-arrow-icon"
+            >
+              <svg
+                aria-hidden="true"
+                class=""
+                data-icon="down"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                />
+              </svg>
+            </i>
           </span>
         </div>
       </div>
@@ -1051,6 +1110,7 @@ exports[`renders ./components/calendar/demo/card.md correctly 1`] = `
       >
         <div
           aria-autocomplete="list"
+          aria-controls=""
           aria-expanded="false"
           aria-haspopup="true"
           class="ant-select-selection
@@ -1072,14 +1132,32 @@ exports[`renders ./components/calendar/demo/card.md correctly 1`] = `
           <span
             class="ant-select-arrow"
             style="user-select:none;-webkit-user-select:none"
-            unselectable="unselectable"
+            unselectable="on"
           >
-            <b />
+            <i
+              aria-label="icon: down"
+              class="anticon anticon-down ant-select-arrow-icon"
+            >
+              <svg
+                aria-hidden="true"
+                class=""
+                data-icon="down"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                />
+              </svg>
+            </i>
           </span>
         </div>
       </div>
       <div
-        class="ant-radio-group ant-radio-group-small"
+        class="ant-radio-group ant-radio-group-outline ant-radio-group-small"
       >
         <label
           class="ant-radio-button-wrapper ant-radio-button-wrapper-checked"
@@ -1091,6 +1169,7 @@ exports[`renders ./components/calendar/demo/card.md correctly 1`] = `
               checked=""
               class="ant-radio-button-input"
               type="radio"
+              value="month"
             />
             <span
               class="ant-radio-button-inner"
@@ -1109,6 +1188,7 @@ exports[`renders ./components/calendar/demo/card.md correctly 1`] = `
             <input
               class="ant-radio-button-input"
               type="radio"
+              value="year"
             />
             <span
               class="ant-radio-button-inner"
@@ -1241,7 +1321,7 @@ exports[`renders ./components/calendar/demo/card.md correctly 1`] = `
                 </div>
               </td>
               <td
-                class="ant-fullcalendar-cell ant-fullcalendar-last-month-cell"
+                class="ant-fullcalendar-cell ant-fullcalendar-last-month-cell ant-fullcalendar-last-day-of-month"
                 role="gridcell"
                 title="October 31, 2016"
               >
@@ -1801,7 +1881,7 @@ exports[`renders ./components/calendar/demo/card.md correctly 1`] = `
                 </div>
               </td>
               <td
-                class="ant-fullcalendar-cell"
+                class="ant-fullcalendar-cell ant-fullcalendar-last-day-of-month"
                 role="gridcell"
                 title="November 30, 2016"
               >
@@ -2024,6 +2104,7 @@ exports[`renders ./components/calendar/demo/notice-calendar.md correctly 1`] = `
     >
       <div
         aria-autocomplete="list"
+        aria-controls=""
         aria-expanded="false"
         aria-haspopup="true"
         class="ant-select-selection
@@ -2045,9 +2126,27 @@ exports[`renders ./components/calendar/demo/notice-calendar.md correctly 1`] = `
         <span
           class="ant-select-arrow"
           style="user-select:none;-webkit-user-select:none"
-          unselectable="unselectable"
+          unselectable="on"
         >
-          <b />
+          <i
+            aria-label="icon: down"
+            class="anticon anticon-down ant-select-arrow-icon"
+          >
+            <svg
+              aria-hidden="true"
+              class=""
+              data-icon="down"
+              fill="currentColor"
+              focusable="false"
+              height="1em"
+              viewBox="64 64 896 896"
+              width="1em"
+            >
+              <path
+                d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+              />
+            </svg>
+          </i>
         </span>
       </div>
     </div>
@@ -2056,6 +2155,7 @@ exports[`renders ./components/calendar/demo/notice-calendar.md correctly 1`] = `
     >
       <div
         aria-autocomplete="list"
+        aria-controls=""
         aria-expanded="false"
         aria-haspopup="true"
         class="ant-select-selection
@@ -2077,14 +2177,32 @@ exports[`renders ./components/calendar/demo/notice-calendar.md correctly 1`] = `
         <span
           class="ant-select-arrow"
           style="user-select:none;-webkit-user-select:none"
-          unselectable="unselectable"
+          unselectable="on"
         >
-          <b />
+          <i
+            aria-label="icon: down"
+            class="anticon anticon-down ant-select-arrow-icon"
+          >
+            <svg
+              aria-hidden="true"
+              class=""
+              data-icon="down"
+              fill="currentColor"
+              focusable="false"
+              height="1em"
+              viewBox="64 64 896 896"
+              width="1em"
+            >
+              <path
+                d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+              />
+            </svg>
+          </i>
         </span>
       </div>
     </div>
     <div
-      class="ant-radio-group ant-radio-group-default"
+      class="ant-radio-group ant-radio-group-outline ant-radio-group-default"
     >
       <label
         class="ant-radio-button-wrapper ant-radio-button-wrapper-checked"
@@ -2096,6 +2214,7 @@ exports[`renders ./components/calendar/demo/notice-calendar.md correctly 1`] = `
             checked=""
             class="ant-radio-button-input"
             type="radio"
+            value="month"
           />
           <span
             class="ant-radio-button-inner"
@@ -2114,6 +2233,7 @@ exports[`renders ./components/calendar/demo/notice-calendar.md correctly 1`] = `
           <input
             class="ant-radio-button-input"
             type="radio"
+            value="year"
           />
           <span
             class="ant-radio-button-inner"
@@ -2250,7 +2370,7 @@ exports[`renders ./components/calendar/demo/notice-calendar.md correctly 1`] = `
               </div>
             </td>
             <td
-              class="ant-fullcalendar-cell ant-fullcalendar-last-month-cell"
+              class="ant-fullcalendar-cell ant-fullcalendar-last-month-cell ant-fullcalendar-last-day-of-month"
               role="gridcell"
               title="October 31, 2016"
             >
@@ -3087,7 +3207,7 @@ exports[`renders ./components/calendar/demo/notice-calendar.md correctly 1`] = `
               </div>
             </td>
             <td
-              class="ant-fullcalendar-cell"
+              class="ant-fullcalendar-cell ant-fullcalendar-last-day-of-month"
               role="gridcell"
               title="November 30, 2016"
             >
@@ -3439,6 +3559,7 @@ exports[`renders ./components/calendar/demo/select.md correctly 1`] = `
       >
         <div
           aria-autocomplete="list"
+          aria-controls=""
           aria-expanded="false"
           aria-haspopup="true"
           class="ant-select-selection
@@ -3460,9 +3581,27 @@ exports[`renders ./components/calendar/demo/select.md correctly 1`] = `
           <span
             class="ant-select-arrow"
             style="user-select:none;-webkit-user-select:none"
-            unselectable="unselectable"
+            unselectable="on"
           >
-            <b />
+            <i
+              aria-label="icon: down"
+              class="anticon anticon-down ant-select-arrow-icon"
+            >
+              <svg
+                aria-hidden="true"
+                class=""
+                data-icon="down"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                />
+              </svg>
+            </i>
           </span>
         </div>
       </div>
@@ -3471,6 +3610,7 @@ exports[`renders ./components/calendar/demo/select.md correctly 1`] = `
       >
         <div
           aria-autocomplete="list"
+          aria-controls=""
           aria-expanded="false"
           aria-haspopup="true"
           class="ant-select-selection
@@ -3492,14 +3632,32 @@ exports[`renders ./components/calendar/demo/select.md correctly 1`] = `
           <span
             class="ant-select-arrow"
             style="user-select:none;-webkit-user-select:none"
-            unselectable="unselectable"
+            unselectable="on"
           >
-            <b />
+            <i
+              aria-label="icon: down"
+              class="anticon anticon-down ant-select-arrow-icon"
+            >
+              <svg
+                aria-hidden="true"
+                class=""
+                data-icon="down"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                />
+              </svg>
+            </i>
           </span>
         </div>
       </div>
       <div
-        class="ant-radio-group ant-radio-group-default"
+        class="ant-radio-group ant-radio-group-outline ant-radio-group-default"
       >
         <label
           class="ant-radio-button-wrapper ant-radio-button-wrapper-checked"
@@ -3511,6 +3669,7 @@ exports[`renders ./components/calendar/demo/select.md correctly 1`] = `
               checked=""
               class="ant-radio-button-input"
               type="radio"
+              value="month"
             />
             <span
               class="ant-radio-button-inner"
@@ -3529,6 +3688,7 @@ exports[`renders ./components/calendar/demo/select.md correctly 1`] = `
             <input
               class="ant-radio-button-input"
               type="radio"
+              value="year"
             />
             <span
               class="ant-radio-button-inner"
@@ -4203,7 +4363,7 @@ exports[`renders ./components/calendar/demo/select.md correctly 1`] = `
                 </div>
               </td>
               <td
-                class="ant-fullcalendar-cell"
+                class="ant-fullcalendar-cell ant-fullcalendar-last-day-of-month"
                 role="gridcell"
                 title="January 31, 2017"
               >

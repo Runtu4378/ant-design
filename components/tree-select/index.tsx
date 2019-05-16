@@ -2,11 +2,13 @@ import * as React from 'react';
 import RcTreeSelect, { TreeNode, SHOW_ALL, SHOW_PARENT, SHOW_CHILD } from 'rc-tree-select';
 import classNames from 'classnames';
 import { TreeSelectProps } from './interface';
-import { SelectLocale } from '../select';
-import LocaleReceiver from '../locale-provider/LocaleReceiver';
+import { ConfigConsumer, ConfigConsumerProps } from '../config-provider';
 import warning from '../_util/warning';
+import Icon from '../icon';
+import { AntTreeNodeProps } from '../tree';
+import omit from 'omit.js';
 
-export { TreeData, TreeSelectProps } from './interface';
+export { TreeNode, TreeSelectProps } from './interface';
 
 export default class TreeSelect extends React.Component<TreeSelectProps, any> {
   static TreeNode = TreeNode;
@@ -15,11 +17,8 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
   static SHOW_CHILD = SHOW_CHILD;
 
   static defaultProps = {
-    prefixCls: 'ant-select',
     transitionName: 'slide-up',
     choiceTransitionName: 'zoom',
-    showSearch: false,
-    dropdownClassName: 'ant-select-tree-dropdown',
   };
 
   private rcTreeSelect: any;
@@ -29,6 +28,7 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
 
     warning(
       props.multiple !== false || !props.treeCheckable,
+      'TreeSelect',
       '`multiple` will alway be `true` when `treeCheckable` is true',
     );
   }
@@ -43,48 +43,90 @@ export default class TreeSelect extends React.Component<TreeSelectProps, any> {
 
   saveTreeSelect = (node: typeof RcTreeSelect) => {
     this.rcTreeSelect = node;
-  }
+  };
 
-  renderTreeSelect = (locale: SelectLocale) => {
+  renderSwitcherIcon = (prefixCls: string, { isLeaf, loading }: AntTreeNodeProps) => {
+    if (loading) {
+      return <Icon type="loading" className={`${prefixCls}-switcher-loading-icon`} />;
+    }
+    if (isLeaf) {
+      return null;
+    }
+    return <Icon type="caret-down" className={`${prefixCls}-switcher-icon`} />;
+  };
+
+  renderTreeSelect = ({
+    getPopupContainer: getContextPopupContainer,
+    getPrefixCls,
+    renderEmpty,
+  }: ConfigConsumerProps) => {
     const {
-      prefixCls,
+      prefixCls: customizePrefixCls,
       className,
       size,
       notFoundContent,
       dropdownStyle,
-      ...restProps,
+      dropdownClassName,
+      suffixIcon,
+      getPopupContainer,
+      ...restProps
     } = this.props;
+    const rest = omit(restProps, ['inputIcon', 'removeIcon', 'clearIcon', 'switcherIcon']);
 
-    const cls = classNames({
-      [`${prefixCls}-lg`]: size === 'large',
-      [`${prefixCls}-sm`]: size === 'small',
-    }, className);
+    const prefixCls = getPrefixCls('select', customizePrefixCls);
+    const cls = classNames(
+      {
+        [`${prefixCls}-lg`]: size === 'large',
+        [`${prefixCls}-sm`]: size === 'small',
+      },
+      className,
+    );
 
-    let checkable = restProps.treeCheckable;
+    // showSearch: single - false, multiple - true
+    let { showSearch } = restProps;
+    if (!('showSearch' in restProps)) {
+      showSearch = !!(restProps.multiple || restProps.treeCheckable);
+    }
+
+    let checkable = rest.treeCheckable;
     if (checkable) {
       checkable = <span className={`${prefixCls}-tree-checkbox-inner`} />;
     }
+
+    const inputIcon = (suffixIcon &&
+      (React.isValidElement<{ className?: string }>(suffixIcon)
+        ? React.cloneElement(suffixIcon)
+        : suffixIcon)) || <Icon type="down" className={`${prefixCls}-arrow-icon`} />;
+
+    const removeIcon = <Icon type="close" className={`${prefixCls}-remove-icon`} />;
+
+    const clearIcon = (
+      <Icon type="close-circle" className={`${prefixCls}-clear-icon`} theme="filled" />
+    );
+
     return (
       <RcTreeSelect
-        {...restProps}
+        switcherIcon={(nodeProps: AntTreeNodeProps) =>
+          this.renderSwitcherIcon(prefixCls, nodeProps)
+        }
+        inputIcon={inputIcon}
+        removeIcon={removeIcon}
+        clearIcon={clearIcon}
+        {...rest}
+        showSearch={showSearch}
+        getPopupContainer={getPopupContainer || getContextPopupContainer}
+        dropdownClassName={classNames(dropdownClassName, `${prefixCls}-tree-dropdown`)}
         prefixCls={prefixCls}
         className={cls}
         dropdownStyle={{ maxHeight: '100vh', overflow: 'auto', ...dropdownStyle }}
         treeCheckable={checkable}
-        notFoundContent={notFoundContent || locale.notFoundContent}
+        notFoundContent={notFoundContent || renderEmpty('Select')}
         ref={this.saveTreeSelect}
       />
     );
-  }
+  };
 
   render() {
-    return (
-      <LocaleReceiver
-        componentName="Select"
-        defaultLocale={{}}
-      >
-        {this.renderTreeSelect}
-      </LocaleReceiver>
-    );
+    return <ConfigConsumer>{this.renderTreeSelect}</ConfigConsumer>;
   }
 }

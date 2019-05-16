@@ -1,12 +1,11 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { SpinProps } from '../spin';
-import LocaleReceiver from '../locale-provider/LocaleReceiver';
-import defaultLocale from '../locale-provider/default';
+import { ConfigConsumer, ConfigConsumerProps, RenderEmptyHandler } from '../config-provider';
 
 import Spin from '../spin';
-import Pagination from '../pagination';
+import Pagination, { PaginationConfig } from '../pagination';
 import { Row } from '../grid';
 
 import Item from './Item';
@@ -15,7 +14,7 @@ export { ListItemProps, ListItemMetaProps } from './Item';
 
 export type ColumnCount = 1 | 2 | 3 | 4 | 6 | 8 | 12 | 24;
 
-export type ColumnType = 'gutter' | 'column' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type ColumnType = 'gutter' | 'column' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
 export interface ListGridType {
   gutter?: number;
@@ -25,70 +24,116 @@ export interface ListGridType {
   md?: ColumnCount;
   lg?: ColumnCount;
   xl?: ColumnCount;
+  xxl?: ColumnCount;
 }
 
 export type ListSize = 'small' | 'default' | 'large';
 
-export interface ListProps {
+export type ListItemLayout = 'horizontal' | 'vertical';
+
+export interface ListProps<T> {
   bordered?: boolean;
   className?: string;
+  style?: React.CSSProperties;
   children?: React.ReactNode;
-  dataSource: any;
+  dataSource?: T[];
   extra?: React.ReactNode;
   grid?: ListGridType;
   id?: string;
-  itemLayout?: string;
+  itemLayout?: ListItemLayout;
   loading?: boolean | SpinProps;
   loadMore?: React.ReactNode;
-  pagination?: any;
+  pagination?: PaginationConfig | false;
   prefixCls?: string;
   rowKey?: any;
-  renderItem: any;
+  renderItem?: (item: T, index: number) => React.ReactNode;
   size?: ListSize;
   split?: boolean;
   header?: React.ReactNode;
   footer?: React.ReactNode;
-  locale?: Object;
+  locale?: ListLocale;
 }
 
 export interface ListLocale {
-  emptyText: string;
+  emptyText: React.ReactNode | (() => React.ReactNode);
 }
 
-export default class List extends React.Component<ListProps> {
+interface ListState {
+  paginationCurrent: number;
+  paginationSize: number;
+}
+
+export default class List<T> extends React.Component<ListProps<T>, ListState> {
   static Item: typeof Item = Item;
 
   static childContextTypes = {
     grid: PropTypes.any,
+    itemLayout: PropTypes.string,
   };
 
   static defaultProps = {
     dataSource: [],
-    prefixCls: 'ant-list',
     bordered: false,
     split: true,
     loading: false,
-    pagination: false,
+    pagination: false as ListProps<any>['pagination'],
   };
 
-  private keys: {[key: string]: string} = {};
+  defaultPaginationProps = {
+    current: 1,
+    total: 0,
+  };
+
+  private keys: { [key: string]: string } = {};
+
+  private onPaginationChange = this.triggerPaginationEvent('onChange');
+
+  private onPaginationShowSizeChange = this.triggerPaginationEvent('onShowSizeChange');
+
+  constructor(props: ListProps<T>) {
+    super(props);
+
+    const { pagination } = props;
+    const paginationObj = pagination && typeof pagination === 'object' ? pagination : {};
+
+    this.state = {
+      paginationCurrent: paginationObj.defaultCurrent || 1,
+      paginationSize: paginationObj.defaultPageSize || 10,
+    };
+  }
 
   getChildContext() {
     return {
       grid: this.props.grid,
+      itemLayout: this.props.itemLayout,
     };
   }
 
-  renderItem = (item: React.ReactElement<any>, index: number) => {
-    const { dataSource, renderItem, rowKey } = this.props;
+  triggerPaginationEvent(eventName: string) {
+    return (page: number, pageSize: number) => {
+      const { pagination } = this.props;
+      this.setState({
+        paginationCurrent: page,
+        paginationSize: pageSize,
+      });
+      if (pagination && (pagination as any)[eventName]) {
+        (pagination as any)[eventName](page, pageSize);
+      }
+    };
+  }
+
+  renderItem = (item: any, index: number) => {
+    const { renderItem, rowKey } = this.props;
+    if (!renderItem) return null;
+
     let key;
 
     if (typeof rowKey === 'function') {
-      key = rowKey(dataSource[index]);
+      key = rowKey(item);
     } else if (typeof rowKey === 'string') {
-      key = dataSource[rowKey];
+      key = item[rowKey];
     } else {
-      key = dataSource.key;
+      key = item.key;
     }
 
     if (!key) {
@@ -98,20 +143,27 @@ export default class List extends React.Component<ListProps> {
     this.keys[index] = key;
 
     return renderItem(item, index);
-  }
+  };
 
-  isSomethingAfterLastTtem() {
+  isSomethingAfterLastItem() {
     const { loadMore, pagination, footer } = this.props;
     return !!(loadMore || pagination || footer);
   }
 
-  renderEmpty = (contextLocale: ListLocale) => {
-    const locale = { ...contextLocale, ...this.props.locale };
-    return <div className={`${this.props.prefixCls}-empty-text`}>{locale.emptyText}</div>;
-  }
+  renderEmpty = (prefixCls: string, renderEmpty: RenderEmptyHandler) => {
+    const { locale } = this.props;
 
-  render() {
+    return (
+      <div className={`${prefixCls}-empty-text`}>
+        {(locale && locale.emptyText) || renderEmpty('List')}
+      </div>
+    );
+  };
+
+  renderList = ({ getPrefixCls, renderEmpty }: ConfigConsumerProps) => {
+    const { paginationCurrent, paginationSize } = this.state;
     const {
+      prefixCls: customizePrefixCls,
       bordered,
       split,
       className,
@@ -119,25 +171,26 @@ export default class List extends React.Component<ListProps> {
       itemLayout,
       loadMore,
       pagination,
-      prefixCls,
       grid,
-      dataSource,
+      dataSource = [],
       size,
       rowKey,
       renderItem,
       header,
       footer,
       loading,
-      ...rest,
+      locale,
+      ...rest
     } = this.props;
 
+    const prefixCls = getPrefixCls('list', customizePrefixCls);
     let loadingProp = loading;
     if (typeof loadingProp === 'boolean') {
       loadingProp = {
         spinning: loadingProp,
       };
     }
-    const isLoading = (loadingProp && loadingProp.spinning);
+    const isLoading = loadingProp && loadingProp.spinning;
 
     // large => lg
     // small => sm
@@ -159,53 +212,82 @@ export default class List extends React.Component<ListProps> {
       [`${prefixCls}-bordered`]: bordered,
       [`${prefixCls}-loading`]: isLoading,
       [`${prefixCls}-grid`]: grid,
-      [`${prefixCls}-something-after-last-item`]: this.isSomethingAfterLastTtem(),
+      [`${prefixCls}-something-after-last-item`]: this.isSomethingAfterLastItem(),
     });
 
-    const paginationContent = (
+    const paginationProps = {
+      ...this.defaultPaginationProps,
+      total: dataSource.length,
+      current: paginationCurrent,
+      pageSize: paginationSize,
+      ...(pagination || {}),
+    };
+
+    const largestPage = Math.ceil(paginationProps.total / paginationProps.pageSize);
+    if (paginationProps.current > largestPage) {
+      paginationProps.current = largestPage;
+    }
+    const paginationContent = pagination ? (
       <div className={`${prefixCls}-pagination`}>
-        <Pagination {...pagination} />
+        <Pagination
+          {...paginationProps}
+          onChange={this.onPaginationChange}
+          onShowSizeChange={this.onPaginationShowSizeChange}
+        />
       </div>
-    );
+    ) : null;
+
+    let splitDataSource = [...dataSource];
+    if (pagination) {
+      if (dataSource.length > (paginationProps.current - 1) * paginationProps.pageSize) {
+        splitDataSource = [...dataSource].splice(
+          (paginationProps.current - 1) * paginationProps.pageSize,
+          paginationProps.pageSize,
+        );
+      }
+    }
 
     let childrenContent;
-    childrenContent = isLoading && (<div style={{ minHeight: 53 }} />);
-    if (dataSource.length > 0) {
-      const items = dataSource.map((item: any, index: number) => this.renderItem(item, index));
-      const childrenList = React.Children.map(items, (child: any, index) => React.cloneElement(child, {
-          key: this.keys[index],
-        }),
-      );
+    childrenContent = isLoading && <div style={{ minHeight: 53 }} />;
+    if (splitDataSource.length > 0) {
+      const items = splitDataSource.map((item: any, index: number) => this.renderItem(item, index));
+
+      const childrenList: Array<React.ReactNode> = [];
+      React.Children.forEach(items, (child: any, index) => {
+        childrenList.push(
+          React.cloneElement(child, {
+            key: this.keys[index],
+          }),
+        );
+      });
 
       childrenContent = grid ? (
         <Row gutter={grid.gutter}>{childrenList}</Row>
-      ) : childrenList;
-    } else if (!children && !isLoading) {
-      childrenContent = (
-        <LocaleReceiver
-          componentName="Table"
-          defaultLocale={defaultLocale.Table}
-        >
-          {this.renderEmpty}
-        </LocaleReceiver>
+      ) : (
+        <ul className={`${prefixCls}-items`}>{childrenList}</ul>
       );
+    } else if (!children && !isLoading) {
+      childrenContent = this.renderEmpty(prefixCls, renderEmpty);
     }
 
-    const content = (
-      <div>
-        <Spin {...loadingProp}>{childrenContent}</Spin>
-        {loadMore}
-        {(!loadMore && pagination) ? paginationContent : null}
-      </div>
-    );
+    const paginationPosition = paginationProps.position || 'bottom';
 
     return (
       <div className={classString} {...rest}>
+        {(paginationPosition === 'top' || paginationPosition === 'both') && paginationContent}
         {header && <div className={`${prefixCls}-header`}>{header}</div>}
-        {content}
-        {children}
+        <Spin {...loadingProp}>
+          {childrenContent}
+          {children}
+        </Spin>
         {footer && <div className={`${prefixCls}-footer`}>{footer}</div>}
+        {loadMore ||
+          ((paginationPosition === 'bottom' || paginationPosition === 'both') && paginationContent)}
       </div>
     );
+  };
+
+  render() {
+    return <ConfigConsumer>{this.renderList}</ConfigConsumer>;
   }
 }

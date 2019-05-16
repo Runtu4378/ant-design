@@ -13,7 +13,7 @@ title:
 
 Additional description for alert message.
 
-````jsx
+```jsx
 import { Alert } from 'antd';
 
 ReactDOM.render(
@@ -38,6 +38,7 @@ ReactDOM.render(
       description="Error Description Error Description Error Description Error Description"
       type="error"
     />
-  </div>
-, mountNode);
-````
+  </div>,
+  mountNode,
+);
+```

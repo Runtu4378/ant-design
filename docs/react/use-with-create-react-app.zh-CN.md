@@ -1,5 +1,5 @@
 ---
-order: 4
+order: 3
 title: 在 create-react-app 中使用
 ---
 
@@ -9,16 +9,10 @@ title: 在 create-react-app 中使用
 
 ## 安装和初始化
 
-我们需要在命令行中安装 create-react-app 工具，你可能还需要安装 [yarn](https://github.com/yarnpkg/yarn/)。
+在开始之前，你可能需要安装 [yarn](https://github.com/yarnpkg/yarn/)。
 
 ```bash
-$ npm install -g create-react-app yarn
-```
-
-然后新建一个项目。
-
-```bash
-$ create-react-app antd-demo
+$ yarn create react-app antd-demo
 ```
 
 工具会自动初始化一个脚手架并安装 React 项目的各种必要依赖，如果在过程中出现网络问题，请尝试配置代理或使用其他 npm registry。
@@ -98,10 +92,10 @@ export default App;
 
 此时我们需要对 create-react-app 的默认配置进行自定义，这里我们使用 [react-app-rewired](https://github.com/timarney/react-app-rewired) （一个对 create-react-app 进行自定义配置的社区解决方案）。
 
-引入 react-app-rewired 并修改 package.json 里的启动配置。
+引入 react-app-rewired 并修改 package.json 里的启动配置。由于新的 [react-app-rewired@2.x](https://github.com/timarney/react-app-rewired#alternatives) 版本的关系，你还需要安装 [customize-cra](https://github.com/arackaf/customize-cra)。
 
 ```
-$ yarn add react-app-rewired --dev
+$ yarn add react-app-rewired customize-cra
 ```
 
 ```diff
@@ -111,8 +105,8 @@ $ yarn add react-app-rewired --dev
 +   "start": "react-app-rewired start",
 -   "build": "react-scripts build",
 +   "build": "react-app-rewired build",
--   "test": "react-scripts test --env=jsdom",
-+   "test": "react-app-rewired test --env=jsdom",
+-   "test": "react-scripts test",
++   "test": "react-app-rewired test",
 }
 ```
 
@@ -130,16 +124,23 @@ module.exports = function override(config, env) {
 [babel-plugin-import](https://github.com/ant-design/babel-plugin-import) 是一个用于按需加载组件代码和样式的 babel 插件（[原理](/docs/react/getting-started#按需加载)），现在我们尝试安装它并修改 `config-overrides.js` 文件。
 
 ```bash
-$ yarn add babel-plugin-import --dev
+$ yarn add babel-plugin-import
 ```
 
 ```diff
-+ const { injectBabelPlugin } = require('react-app-rewired');
++ const { override, fixBabelImports } = require('customize-cra');
 
-  module.exports = function override(config, env) {
-+   config = injectBabelPlugin(['import', { libraryName: 'antd', libraryDirectory: 'es', style: 'css' }], config);
-    return config;
-  };
+- module.exports = function override(config, env) {
+-   // do stuff with the webpack config...
+-   return config;
+- };
++ module.exports = override(
++   fixBabelImports('import', {
++     libraryName: 'antd',
++     libraryDirectory: 'es',
++     style: 'css',
++   }),
++ );
 ```
 
 然后移除前面在 `src/App.css` 里全量添加的 `@import '~antd/dist/antd.css';` 样式代码，并且按下面的格式引入模块。
@@ -168,30 +169,35 @@ $ yarn add babel-plugin-import --dev
 
 ### 自定义主题
 
-按照 [配置主题](/docs/react/customize-theme) 的要求，自定义主题需要用到 less 变量覆盖功能。我们可以引入 react-app-rewire 的 less 插件 [react-app-rewire-less](http://npmjs.com/react-app-rewire-less) 来帮助加载 less 样式，同时修改 `config-overrides.js` 文件。
+按照 [配置主题](/docs/react/customize-theme) 的要求，自定义主题需要用到 less 变量覆盖功能。我们可以引入 `customize-cra` 中提供的 less 相关的函数 [addLessLoader](https://github.com/arackaf/customize-cra#addlessloaderloaderoptions) 来帮助加载 less 样式，同时修改 `config-overrides.js` 文件如下。
 
 ```bash
-$ yarn add react-app-rewire-less --dev
+$ yarn add less less-loader
 ```
 
 ```diff
-  const { injectBabelPlugin } = require('react-app-rewired');
-+ const rewireLess = require('react-app-rewire-less');
+- const { override, fixBabelImports } = require('customize-cra');
++ const { override, fixBabelImports, addLessLoader } = require('customize-cra');
 
-  module.exports = function override(config, env) {
--   config = injectBabelPlugin(['import', { libraryName: 'antd', style: 'css' }], config);
-+   config = injectBabelPlugin(['import', { libraryName: 'antd', style: true }], config);
-+   config = rewireLess.withLoaderOptions({
-+     modifyVars: { "@primary-color": "#1DA57A" },
-+   })(config, env);
-    return config;
-  };
+module.exports = override(
+  fixBabelImports('import', {
+    libraryName: 'antd',
+    libraryDirectory: 'es',
+-   style: 'css',
++   style: true,
+  }),
++ addLessLoader({
++   javascriptEnabled: true,
++   modifyVars: { '@primary-color': '#1DA57A' },
++ }),
+);
 ```
 
-这里利用了 [less-loader](https://github.com/webpack/less-loader#less-options) 的 `modifyVars` 来进行主题配置，
-变量和其他配置方式可以参考 [配置主题](/docs/react/customize-theme) 文档。
+这里利用了 [less-loader](https://github.com/webpack/less-loader#less-options) 的 `modifyVars` 来进行主题配置，变量和其他配置方式可以参考 [配置主题](/docs/react/customize-theme) 文档。
 
 修改后重启 `yarn start`，如果看到一个绿色的按钮就说明配置成功了。
+
+> 你也可以使用 [craco](https://github.com/sharegate/craco) 和 [craco-antd](https://github.com/FormAPI/craco-antd) 来实现和 customize-cra 一样的修改 create-react-app 配置的功能。
 
 ## eject
 
@@ -207,4 +213,6 @@ React 生态圈中还有很多优秀的脚手架，使用它们并引入 antd �
 - [kriasoft/react-starter-kit](https://github.com/ant-design/react-starter-kit)
 - [create-react-app-antd](https://github.com/ant-design/create-react-app-antd)
 - [cra-ts-antd](https://github.com/comerc/cra-ts-antd)
-- [next.js](https://github.com/zeit/next.js/tree/v3-beta/examples/with-ant-design)
+- [next.js](https://github.com/zeit/next.js/tree/master/examples/with-ant-design)
+- [nwb](https://github.com/insin/nwb-examples/tree/master/react-app-antd)
+- [antd-react-scripts](https://github.com/minesaner/create-react-app/tree/antd/packages/react-scripts)

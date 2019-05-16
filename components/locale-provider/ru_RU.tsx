@@ -1,10 +1,3 @@
-/**
- * Created by Andrey Gayvoronsky on 13/04/16.
- */
-
-import * as moment from 'moment';
-moment.locale('ru');
-
 import Pagination from 'rc-pagination/lib/locale/ru_RU';
 import DatePicker from '../date-picker/locale/ru_RU';
 import TimePicker from '../time-picker/locale/ru_RU';
@@ -20,7 +13,6 @@ export default {
     filterTitle: 'Фильтр',
     filterConfirm: 'OK',
     filterReset: 'Сбросить',
-    emptyText: 'Нет данных',
     selectAll: 'Выбрать всё',
     selectInvert: 'Инвертировать выбор',
   },
@@ -34,18 +26,17 @@ export default {
     cancelText: 'Отмена',
   },
   Transfer: {
-    notFoundContent: 'Ничего не найдено',
-    searchPlaceholder: 'Введите название для поиска',
-    itemUnit: 'item',
-    itemsUnit: 'items',
-  },
-  Select: {
-    notFoundContent: 'Ничего не найдено',
+    searchPlaceholder: 'Поиск',
+    itemUnit: 'элем.',
+    itemsUnit: 'элем.',
   },
   Upload: {
-    uploading: 'Закачиваю...',
+    uploading: 'Загрузка...',
     removeFile: 'Удалить файл',
-    uploadError: 'Ошибка при закачке',
+    uploadError: 'При загрузке произошла ошибка',
     previewFile: 'Предпросмотр файла',
+  },
+  Empty: {
+    description: 'Нет данных',
   },
 };

@@ -1,6 +1,3 @@
-import * as moment from 'moment';
-moment.locale('el');
-
 import Pagination from 'rc-pagination/lib/locale/el_GR';
 import DatePicker from '../date-picker/locale/el_GR';
 import TimePicker from '../time-picker/locale/el_GR';
@@ -16,7 +13,6 @@ export default {
     filterTitle: 'Μενού φίλτρων',
     filterConfirm: 'ΟΚ',
     filterReset: 'Επαναφορά',
-    emptyText: 'Δεν υπάρχουν δεδομένα',
     selectAll: 'Επιλογή τρέχουσας σελίδας',
     selectInvert: 'Αντιστροφή τρέχουσας σελίδας',
   },
@@ -30,18 +26,17 @@ export default {
     cancelText: 'Άκυρο',
   },
   Transfer: {
-    notFoundContent: 'Δεν βρέθηκε',
     searchPlaceholder: 'Αναζήτηση',
     itemUnit: 'αντικείμενο',
     itemsUnit: 'αντικείμενα',
-  },
-  Select: {
-    notFoundContent: 'Δεν βρέθηκε',
   },
   Upload: {
     uploading: 'Μεταφόρτωση...',
     removeFile: 'Αφαίρεση αρχείου',
     uploadError: 'Σφάλμα μεταφόρτωσης',
     previewFile: 'Προεπισκόπηση αρχείου',
+  },
+  Empty: {
+    description: 'Δεν υπάρχουν δεδομένα',
   },
 };

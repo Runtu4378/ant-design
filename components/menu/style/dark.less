@@ -2,14 +2,14 @@
   // dark theme
   &-dark,
   &-dark &-sub {
-    color: @text-color-secondary-dark;
+    color: @menu-dark-color;
     background: @menu-dark-bg;
     .@{menu-prefix-cls}-submenu-title .@{menu-prefix-cls}-submenu-arrow {
-      opacity: .45;
-      transition: all .3s;
-      &:after,
-      &:before {
-        background: #fff;
+      opacity: 0.45;
+      transition: all 0.3s;
+      &::after,
+      &::before {
+        background: @menu-dark-arrow-color;
       }
     }
   }
@@ -20,23 +20,29 @@
 
   &-dark &-inline&-sub {
     background: @menu-dark-submenu-bg;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, .45) inset;
+    box-shadow: 0 2px 8px fade(@black, 45%) inset;
   }
 
   &-dark&-horizontal {
-    border-bottom-color: @menu-dark-bg;
+    border-bottom: 0;
   }
 
   &-dark&-horizontal > &-item,
   &-dark&-horizontal > &-submenu {
+    top: 0;
+    margin-top: 0;
     border-color: @menu-dark-bg;
     border-bottom: 0;
+  }
+
+  &-dark&-horizontal > &-item > a::before {
+    bottom: 0;
   }
 
   &-dark &-item,
   &-dark &-item-group-title,
   &-dark &-item > a {
-    color: @text-color-secondary-dark;
+    color: @menu-dark-color;
   }
 
   &-dark&-inline,
@@ -50,10 +56,10 @@
   &-dark&-vertical &-item,
   &-dark&-vertical-left &-item,
   &-dark&-vertical-right &-item {
-    border-right: 0;
-    margin-left: 0;
     left: 0;
-    &:after {
+    margin-left: 0;
+    border-right: 0;
+    &::after {
       border-right: 0;
     }
   }
@@ -69,38 +75,38 @@
   &-dark &-submenu-open,
   &-dark &-submenu-selected,
   &-dark &-submenu-title:hover {
+    color: @menu-dark-highlight-color;
     background-color: transparent;
-    color: #fff;
     > a {
-      color: #fff;
+      color: @menu-dark-highlight-color;
     }
     > .@{menu-prefix-cls}-submenu-title,
     > .@{menu-prefix-cls}-submenu-title:hover {
       > .@{menu-prefix-cls}-submenu-arrow {
         opacity: 1;
-        &:after,
-        &:before {
-          background: #fff;
+        &::after,
+        &::before {
+          background: @menu-dark-highlight-color;
         }
       }
     }
   }
 
   &-dark &-item-selected {
+    color: @menu-dark-highlight-color;
     border-right: 0;
-    color: #fff;
-    &:after {
+    &::after {
       border-right: 0;
     }
     > a,
     > a:hover {
-      color: #fff;
+      color: @menu-dark-highlight-color;
     }
   }
 
   &&-dark &-item-selected,
   &-submenu-popup&-dark &-item-selected {
-    background-color: @primary-color;
+    background-color: @menu-dark-item-active-bg;
   }
 
   // Disabled state sets text to dark gray and nukes hover/tab effects
@@ -108,11 +114,17 @@
   &-dark &-submenu-disabled {
     &,
     > a {
-      opacity: 0.8;
       color: @disabled-color-dark !important;
+      opacity: 0.8;
     }
     > .@{menu-prefix-cls}-submenu-title {
       color: @disabled-color-dark !important;
+      > .@{menu-prefix-cls}-submenu-arrow {
+        &::before,
+        &::after {
+          background: @disabled-color-dark !important;
+        }
+      }
     }
   }
 }

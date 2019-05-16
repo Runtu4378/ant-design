@@ -11,10 +11,11 @@ title:
 
 ## en-US
 
-To use `confirm()` to popup a confirmation modal dialog.
+Use `confirm()` to show a confirmation modal dialog.
 
-````jsx
+```jsx
 import { Modal, Button } from 'antd';
+
 const confirm = Modal.confirm;
 
 function showConfirm() {
@@ -46,14 +47,35 @@ function showDeleteConfirm() {
   });
 }
 
+function showPropsConfirm() {
+  confirm({
+    title: 'Are you sure delete this task?',
+    content: 'Some descriptions',
+    okText: 'Yes',
+    okType: 'danger',
+    okButtonProps: {
+      disabled: true,
+    },
+    cancelText: 'No',
+    onOk() {
+      console.log('OK');
+    },
+    onCancel() {
+      console.log('Cancel');
+    },
+  });
+}
+
 ReactDOM.render(
   <div>
-    <Button onClick={showConfirm}>
-      Confirm
-    </Button>
+    <Button onClick={showConfirm}>Confirm</Button>
     <Button onClick={showDeleteConfirm} type="dashed">
       Delete
     </Button>
-  </div>
-, mountNode);
-````
+    <Button onClick={showPropsConfirm} type="dashed">
+      With extra props
+    </Button>
+  </div>,
+  mountNode,
+);
+```

@@ -11,18 +11,19 @@ title:
 
 ## en-US
 
-You can custom text format by setting `format`.
+You can set a custom text by setting the `format` prop.
 
-````jsx
+```jsx
 import { Progress } from 'antd';
 
 ReactDOM.render(
   <div>
     <Progress type="circle" percent={75} format={percent => `${percent} Days`} />
     <Progress type="circle" percent={100} format={() => 'Done'} />
-  </div>
-, mountNode);
-````
+  </div>,
+  mountNode,
+);
+```
 
 <style>
 div.ant-progress-circle,

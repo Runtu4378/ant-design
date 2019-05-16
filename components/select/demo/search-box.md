@@ -7,16 +7,17 @@ title:
 
 ## zh-CN
 
-自动补全和远程数据结合。
+搜索和远程数据结合。
 
 ## en-US
 
-Autocomplete with remote ajax data.
+Search with remote data.
 
-````jsx
+```jsx
 import { Select } from 'antd';
 import jsonp from 'fetch-jsonp';
 import querystring from 'querystring';
+
 const Option = Select.Option;
 
 let timeout;
@@ -36,11 +37,11 @@ function fetch(value, callback) {
     });
     jsonp(`https://suggest.taobao.com/sug?${str}`)
       .then(response => response.json())
-      .then((d) => {
+      .then(d => {
         if (currentValue === value) {
           const result = d.result;
           const data = [];
-          result.forEach((r) => {
+          result.forEach(r => {
             data.push({
               value: r[0],
               text: r[0],
@@ -57,24 +58,31 @@ function fetch(value, callback) {
 class SearchInput extends React.Component {
   state = {
     data: [],
-    value: '',
-  }
-  handleChange = (value) => {
-    this.setState({ value });
+    value: undefined,
+  };
+
+  handleSearch = value => {
     fetch(value, data => this.setState({ data }));
-  }
+  };
+
+  handleChange = value => {
+    this.setState({ value });
+  };
+
   render() {
     const options = this.state.data.map(d => <Option key={d.value}>{d.text}</Option>);
     return (
       <Select
-        mode="combobox"
+        showSearch
         value={this.state.value}
         placeholder={this.props.placeholder}
         style={this.props.style}
         defaultActiveFirstOption={false}
         showArrow={false}
         filterOption={false}
+        onSearch={this.handleSearch}
         onChange={this.handleChange}
+        notFoundContent={null}
       >
         {options}
       </Select>
@@ -82,7 +90,5 @@ class SearchInput extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <SearchInput placeholder="input search text" style={{ width: 200 }} />
-, mountNode);
-````
+ReactDOM.render(<SearchInput placeholder="input search text" style={{ width: 200 }} />, mountNode);
+```

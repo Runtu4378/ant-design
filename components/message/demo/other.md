@@ -13,7 +13,7 @@ title:
 
 Messages of success, error and warning types.
 
-````jsx
+```jsx
 import { message, Button } from 'antd';
 
 const success = () => {
@@ -33,9 +33,10 @@ ReactDOM.render(
     <Button onClick={success}>Success</Button>
     <Button onClick={error}>Error</Button>
     <Button onClick={warning}>Warning</Button>
-  </div>
-, mountNode);
-````
+  </div>,
+  mountNode,
+);
+```
 
 <style>
 #components-message-demo-other .ant-btn {

@@ -1,6 +1,3 @@
-import * as moment from 'moment';
-moment.locale('et');
-
 import Pagination from 'rc-pagination/lib/locale/et_EE';
 import DatePicker from '../date-picker/locale/et_EE';
 import TimePicker from '../time-picker/locale/et_EE';
@@ -16,7 +13,6 @@ export default {
     filterTitle: 'Filtri menüü',
     filterConfirm: 'OK',
     filterReset: 'Nulli',
-    emptyText: 'Andmed puuduvad',
     selectAll: 'Vali kõik',
     selectInvert: 'Inverteeri valik',
   },
@@ -30,18 +26,17 @@ export default {
     cancelText: 'Tühista',
   },
   Transfer: {
-    notFoundContent: 'Ei leitud',
     searchPlaceholder: 'Otsi siit',
     itemUnit: 'kogus',
     itemsUnit: 'kogus',
-  },
-  Select: {
-    notFoundContent: 'Ei leitud',
   },
   Upload: {
     uploading: 'Üleslaadimine...',
     removeFile: 'Eemalda fail',
     uploadError: 'Üleslaadimise tõrge',
     previewFile: 'Faili eelvaade',
+  },
+  Empty: {
+    description: 'Andmed puuduvad',
   },
 };

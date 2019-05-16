@@ -1,8 +1,6 @@
-import getRequestAnimationFrame, { cancelRequestAnimationFrame } from '../_util/getRequestAnimationFrame';
+import raf from 'raf';
 
-const reqAnimFrame = getRequestAnimationFrame();
-
-export default function throttleByAnimationFrame(fn: () => void) {
+export default function throttleByAnimationFrame(fn: (...args: any[]) => void) {
   let requestId: number | null;
 
   const later = (args: any[]) => () => {
@@ -12,18 +10,18 @@ export default function throttleByAnimationFrame(fn: () => void) {
 
   const throttled = (...args: any[]) => {
     if (requestId == null) {
-      requestId = reqAnimFrame(later(args));
+      requestId = raf(later(args));
     }
   };
 
-  (throttled as any).cancel = () => cancelRequestAnimationFrame(requestId!);
+  (throttled as any).cancel = () => raf.cancel(requestId!);
 
   return throttled;
 }
 
 export function throttleByAnimationFrameDecorator() {
   return function(target: any, key: string, descriptor: any) {
-    let fn = descriptor.value;
+    const fn = descriptor.value;
     let definingProperty = false;
     return {
       configurable: true,
@@ -32,7 +30,7 @@ export function throttleByAnimationFrameDecorator() {
           return fn;
         }
 
-        let boundFn = throttleByAnimationFrame(fn.bind(this));
+        const boundFn = throttleByAnimationFrame(fn.bind(this));
         definingProperty = true;
         Object.defineProperty(this, key, {
           value: boundFn,

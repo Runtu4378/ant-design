@@ -13,7 +13,7 @@ title:
 
 Support set allow to clear star when click again.
 
-````jsx
+```jsx
 import { Rate } from 'antd';
 
 ReactDOM.render(
@@ -21,6 +21,7 @@ ReactDOM.render(
     <Rate defaultValue={3} /> allowClear: true
     <br />
     <Rate allowClear={false} defaultValue={3} /> allowClear: false
-  </div>
-, mountNode);
-````
+  </div>,
+  mountNode,
+);
+```

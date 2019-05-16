@@ -3,70 +3,57 @@ import { mount } from 'enzyme';
 import createStore from '../createStore';
 import SelectionBox from '../SelectionBox';
 
+const getDefaultStore = selectedRowKeys =>
+  createStore({
+    selectedRowKeys: selectedRowKeys || [],
+    selectionDirty: false,
+  });
+
 describe('SelectionBox', () => {
   it('unchecked by selectedRowKeys ', () => {
-    const store = createStore({
-      selectedRowKeys: [],
-      selectionDirty: false,
-    });
-
     const wrapper = mount(
       <SelectionBox
-        store={store}
+        store={getDefaultStore()}
         rowIndex="1"
         disabled={false}
         onChange={() => {}}
         defaultSelection={[]}
-      />
+      />,
     );
 
     expect(wrapper.state()).toEqual({ checked: false });
   });
 
   it('checked by selectedRowKeys ', () => {
-    const store = createStore({
-      selectedRowKeys: ['1'],
-      selectionDirty: false,
-    });
-
     const wrapper = mount(
       <SelectionBox
-        store={store}
+        store={getDefaultStore(['1'])}
         rowIndex="1"
         disabled={false}
         onChange={() => {}}
         defaultSelection={[]}
-      />
+      />,
     );
 
     expect(wrapper.state()).toEqual({ checked: true });
   });
 
   it('checked by defaultSelection', () => {
-    const store = createStore({
-      selectedRowKeys: [],
-      selectionDirty: false,
-    });
-
     const wrapper = mount(
       <SelectionBox
-        store={store}
+        store={getDefaultStore()}
         rowIndex="1"
         disabled={false}
         onChange={() => {}}
         defaultSelection={['1']}
-      />
+      />,
     );
 
     expect(wrapper.state()).toEqual({ checked: true });
   });
 
   it('checked when store change', () => {
-    const store = createStore({
-      selectedRowKeys: [],
-      selectionDirty: false,
-    });
-
+    const store = getDefaultStore();
     const wrapper = mount(
       <SelectionBox
         store={store}
@@ -74,7 +61,7 @@ describe('SelectionBox', () => {
         disabled={false}
         onChange={() => {}}
         defaultSelection={[]}
-      />
+      />,
     );
 
     store.setState({
@@ -83,5 +70,48 @@ describe('SelectionBox', () => {
     });
 
     expect(wrapper.state()).toEqual({ checked: true });
+  });
+
+  it('passes props to Checkbox', () => {
+    const checkboxProps = {
+      name: 'testName',
+      id: 'testId',
+    };
+    const wrapper = mount(
+      <SelectionBox
+        store={getDefaultStore()}
+        rowIndex="1"
+        disabled={false}
+        onChange={() => {}}
+        defaultSelection={['1']}
+        {...checkboxProps}
+      />,
+    );
+    wrapper.find('Checkbox').forEach(box => {
+      expect(box.props().name).toEqual(checkboxProps.name);
+      expect(box.props().id).toEqual(checkboxProps.id);
+    });
+  });
+
+  it('passes props to Radios', () => {
+    const radioProps = {
+      name: 'testName',
+      id: 'testId',
+    };
+    const wrapper = mount(
+      <SelectionBox
+        store={getDefaultStore()}
+        rowIndex="1"
+        disabled={false}
+        onChange={() => {}}
+        defaultSelection={['1']}
+        type="radio"
+        {...radioProps}
+      />,
+    );
+    wrapper.find('Radio').forEach(radio => {
+      expect(radio.props().name).toEqual(radioProps.name);
+      expect(radio.props().id).toEqual(radioProps.id);
+    });
   });
 });

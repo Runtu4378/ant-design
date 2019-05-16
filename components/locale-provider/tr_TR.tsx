@@ -1,10 +1,7 @@
-import * as moment from 'moment';
-moment.locale('tr');
-
-import Pagination from 'rc-pagination/lib/locale/en_US';
+import Pagination from 'rc-pagination/lib/locale/tr_TR';
 import DatePicker from '../date-picker/locale/tr_TR';
 import TimePicker from '../time-picker/locale/tr_TR';
-import Calendar from '../calendar/locale/en_US';
+import Calendar from '../calendar/locale/tr_TR';
 
 export default {
   locale: 'tr',
@@ -12,13 +9,16 @@ export default {
   DatePicker,
   TimePicker,
   Calendar,
+  global: {
+    placeholder: 'Lütfen seçiniz',
+  },
   Table: {
     filterTitle: 'Menü Filtrele',
     filterConfirm: 'Tamam',
     filterReset: 'Sıfırla',
-    emptyText: 'Veri Yok',
     selectAll: 'Hepsini Seç',
     selectInvert: 'Tersini Seç',
+    sortTitle: 'Sırala',
   },
   Modal: {
     okText: 'Tamam',
@@ -30,18 +30,27 @@ export default {
     cancelText: 'İptal',
   },
   Transfer: {
-    notFoundContent: 'Bulunamadı',
+    titles: ['', ''],
     searchPlaceholder: 'Arama',
     itemUnit: 'Öğe',
     itemsUnit: 'Öğeler',
-  },
-  Select: {
-    notFoundContent: 'Bulunamadı',
   },
   Upload: {
     uploading: 'Yükleniyor...',
     removeFile: `Dosyayı kaldır`,
     uploadError: 'Yükleme Hatası',
     previewFile: `Dosyayı Önizle`,
+  },
+  Empty: {
+    description: 'Veri Yok',
+  },
+  Icon: {
+    icon: 'icon',
+  },
+  Text: {
+    edit: 'düzenle',
+    copy: 'kopyala',
+    copied: 'kopyalandı',
+    expand: 'genişlet',
   },
 };

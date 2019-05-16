@@ -13,7 +13,7 @@ title:
 
 The default trigger mode is `hover`, you can change it to `click`.
 
-````jsx
+```jsx
 import { Menu, Dropdown, Icon } from 'antd';
 
 const menu = (
@@ -34,6 +34,7 @@ ReactDOM.render(
     <a className="ant-dropdown-link" href="#">
       Click me <Icon type="down" />
     </a>
-  </Dropdown>
-, mountNode);
-````
+  </Dropdown>,
+  mountNode,
+);
+```

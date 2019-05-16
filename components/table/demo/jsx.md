@@ -15,72 +15,74 @@ title:
 
 Using JSX style API (introduced in 2.5.0)
 
-> Since this is just a syntax sugar for the prop `columns`, so that you can't compose `Column` and `ColumnGroup` with other Components.
+> Since this is just a syntax sugar for the prop `columns`, you can't compose `Column` and `ColumnGroup` with other Components.
 
-````jsx
-import { Table, Icon, Divider } from 'antd';
+```jsx
+import { Table, Divider, Tag } from 'antd';
 
 const { Column, ColumnGroup } = Table;
 
-const data = [{
-  key: '1',
-  firstName: 'John',
-  lastName: 'Brown',
-  age: 32,
-  address: 'New York No. 1 Lake Park',
-}, {
-  key: '2',
-  firstName: 'Jim',
-  lastName: 'Green',
-  age: 42,
-  address: 'London No. 1 Lake Park',
-}, {
-  key: '3',
-  firstName: 'Joe',
-  lastName: 'Black',
-  age: 32,
-  address: 'Sidney No. 1 Lake Park',
-}];
+const data = [
+  {
+    key: '1',
+    firstName: 'John',
+    lastName: 'Brown',
+    age: 32,
+    address: 'New York No. 1 Lake Park',
+    tags: ['nice', 'developer'],
+  },
+  {
+    key: '2',
+    firstName: 'Jim',
+    lastName: 'Green',
+    age: 42,
+    address: 'London No. 1 Lake Park',
+    tags: ['loser'],
+  },
+  {
+    key: '3',
+    firstName: 'Joe',
+    lastName: 'Black',
+    age: 32,
+    address: 'Sidney No. 1 Lake Park',
+    tags: ['cool', 'teacher'],
+  },
+];
 
 ReactDOM.render(
   <Table dataSource={data}>
     <ColumnGroup title="Name">
-      <Column
-        title="First Name"
-        dataIndex="firstName"
-        key="firstName"
-      />
-      <Column
-        title="Last Name"
-        dataIndex="lastName"
-        key="lastName"
-      />
+      <Column title="First Name" dataIndex="firstName" key="firstName" />
+      <Column title="Last Name" dataIndex="lastName" key="lastName" />
     </ColumnGroup>
+    <Column title="Age" dataIndex="age" key="age" />
+    <Column title="Address" dataIndex="address" key="address" />
     <Column
-      title="Age"
-      dataIndex="age"
-      key="age"
-    />
-    <Column
-      title="Address"
-      dataIndex="address"
-      key="address"
+      title="Tags"
+      dataIndex="tags"
+      key="tags"
+      render={tags => (
+        <span>
+          {tags.map(tag => (
+            <Tag color="blue" key={tag}>
+              {tag}
+            </Tag>
+          ))}
+        </span>
+      )}
     />
     <Column
       title="Action"
       key="action"
       render={(text, record) => (
         <span>
-          <a href="#">Action 一 {record.name}</a>
+          <a href="javascript:;">Invite {record.lastName}</a>
           <Divider type="vertical" />
-          <a href="#">Delete</a>
-          <Divider type="vertical" />
-          <a href="#" className="ant-dropdown-link">
-            More actions <Icon type="down" />
-          </a>
+          <a href="javascript:;">Delete</a>
         </span>
       )}
     />
-  </Table>
-, mountNode);
-````
+  </Table>,
+  mountNode,
+);
+```

@@ -13,8 +13,9 @@ title:
 
 Customize Trigger Token by `prefix` props. Default to `@`, `Array<string>` also supported.
 
-````jsx
+```jsx
 import { Mention } from 'antd';
+
 const { toString } = Mention;
 
 function onChange(editorState) {
@@ -35,13 +36,15 @@ class App extends React.Component {
       suggestions: [],
     };
   }
+
   onSearchChange = (value, trigger) => {
     console.log('onSearchChange', value, trigger);
     const dataSource = trigger === '@' ? users : tags;
     this.setState({
       suggestions: dataSource.filter(item => item.indexOf(value) !== -1),
     });
-  }
+  };
+
   render() {
     return (
       <Mention
@@ -57,7 +60,5 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <App />
-, mountNode);
-````
+ReactDOM.render(<App />, mountNode);
+```
